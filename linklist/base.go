@@ -92,6 +92,24 @@ func LinkReversal(head *INode) *INode {
 	return head
 }
 
+func LinkCircle(head *INode) int {
+	if head == nil || head.next == nil {
+		return -1
+	}
+
+	p := head.next
+	q := head.next
+	for ; q.next != nil; {
+		p = p.next
+		q = q.next.next
+		if p == nil {
+			return 1
+		}
+	}
+
+	return 0
+}
+
 func main() {
 	var head *INode
 
@@ -116,6 +134,11 @@ func main() {
 	err = LinkReversal(head)
 	if err == nil {
 		return
+	}
+
+	ret := LinkCircle(head)
+	if ret == 1 {
+		fmt.Println("Circle")
 	}
 
 	err = LinkDelete(head, 1)
