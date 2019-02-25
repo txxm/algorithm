@@ -74,6 +74,24 @@ func LinkTraverse(head *INode) {
 	}
 }
 
+func LinkReversal(head *INode) *INode {
+	var p, q, r *INode
+	if head == nil || head.next == nil {
+		return nil
+	}
+
+	p = head.next
+	q = head.next.next
+	for ; r != nil; {
+		r = q.next
+		q.next = p
+		head.next = q
+		q = r
+	}
+
+	return head
+}
+
 func main() {
 	var head *INode
 
@@ -90,11 +108,20 @@ func main() {
 	if err == nil {
 		return
 	}
-
-	err = LinkDelete(head, 1)
+	err = LinkInsert(head, 3)
 	if err == nil {
 		return
 	}
 
+	err = LinkReversal(head)
+	if err == nil {
+		return
+	}
+
+/*	err = LinkDelete(head, 1)
+	if err == nil {
+		return
+	}
+*/
 	LinkTraverse(head)
 }
