@@ -1,0 +1,100 @@
+package main
+
+import (
+	"fmt"
+)
+
+type INode struct {
+	data int
+	next *INode
+}
+
+func LinkInit() *INode {
+	head := new(INode)
+	if head == nil {
+		fmt.Println("new() error.")
+		return nil
+	}
+	head.data = 0
+	head.next = nil
+
+	return head
+}
+
+func LinkInsert(head *INode, value int) *INode {
+	if head == nil {
+		return nil
+	}
+
+	p := new(INode)
+	if p == nil {
+		return nil
+	}
+
+	p.data = value
+	p.next = head.next
+	head.next = p
+
+	return head
+}
+
+func LinkDelete(head *INode, value int) *INode {
+	if head == nil || head.next == nil {
+		return nil
+	}
+
+	for p := head; p.next != nil; {
+		if p.next.data == value {
+			p.next = p.next.next
+			break
+		} else {
+			p = p.next
+		}
+	}
+
+	return head
+}
+
+func LinkEmpty(head *INode) *INode {
+	if head == nil || head.next == nil {
+		return nil
+	} else {
+		return head
+	}
+}
+
+func LinkTraverse(head *INode) {
+	err := LinkEmpty(head)
+	if err == nil {
+		return
+	}
+
+	for p := head.next; p != nil; p = p.next {
+		fmt.Println("p.data =", p.data)
+	}
+}
+
+func main() {
+	var head *INode
+
+	head = LinkInit()
+	if head == nil {
+		return
+	}
+
+	err := LinkInsert(head, 1)
+	if err == nil {
+		return
+	}
+	err = LinkInsert(head, 2)
+	if err == nil {
+		return
+	}
+
+	err = LinkDelete(head, 1)
+	if err == nil {
+		return
+	}
+
+	LinkTraverse(head)
+}
