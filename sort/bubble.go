@@ -23,5 +23,5 @@ func bubble(array []int, l int, r int) {
 func main() {
 	array := []int {3, 5, 1, 7, 0, 6, 4, 9, 8, 2}
 
-	bubble(array, 0, 9)
+	bubble(array, 0, len(array)-1)
 }
