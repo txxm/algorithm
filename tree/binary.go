@@ -93,6 +93,17 @@ func DepthBinary(PRoot *BinaryTreeNode) int {
 	}
 }
 
+func LeafNumberBinary(PRoot *BinaryTreeNode) int {
+	if PRoot == nil {
+		return 0
+	} else if PRoot.left == nil && PRoot.right == nil {
+		return 1
+	} else {
+		return (LeafNumberBinary(PRoot.left)+
+					LeafNumberBinary(PRoot.right))
+	}
+}
+
 func main() {
 	var PRoot *BinaryTreeNode
 	PRoot = BinaryCreate()
@@ -110,4 +121,5 @@ func main() {
 
 	fmt.Println("节点个数：", NodeNumberBinary(PRoot))
 	fmt.Println("二叉树深度：", DepthBinary(PRoot))
+	fmt.Println("叶节点个数：", LeafNumberBinary(PRoot))
 }
