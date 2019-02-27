@@ -65,12 +65,41 @@ func BehindBinary(PRoot *BinaryTreeNode) *BinaryTreeNode {
 	return PRoot
 }
 
+func LevelBinary(PRoot *BinaryTreeNode) *BinaryTreeNode {
+	if PRoot == nil {
+		return nil
+	}
+	return nil
+}
+
+func NodeNumberBinary(PRoot *BinaryTreeNode) int {
+	if PRoot == nil {
+		return 0
+	} else {
+		return (1+NodeNumberBinary(PRoot.left)+
+					NodeNumberBinary(PRoot.right))
+	}
+}
+
+func DepthBinary(PRoot *BinaryTreeNode) int {
+	if PRoot == nil {
+		return 0
+	} else {
+		if DepthBinary(PRoot.left) > DepthBinary(PRoot.right) {
+			return (1+DepthBinary(PRoot.left))
+		} else {
+			return (1+DepthBinary(PRoot.right))
+		}
+	}
+}
+
 func main() {
 	var PRoot *BinaryTreeNode
 	PRoot = BinaryCreate()
 	if PRoot == nil {
 		return
 	}
+
 	fmt.Printf("前序遍历：")
 	PrevBinary(PRoot)
 	fmt.Printf("\n中序遍历：")
@@ -78,4 +107,7 @@ func main() {
 	fmt.Printf("\n后序遍历：")
 	BehindBinary(PRoot)
 	fmt.Println("")
+
+	fmt.Println("节点个数：", NodeNumberBinary(PRoot))
+	fmt.Println("二叉树深度：", DepthBinary(PRoot))
 }
