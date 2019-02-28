@@ -65,13 +65,6 @@ func BehindBinary(PRoot *BinaryTreeNode) *BinaryTreeNode {
 	return PRoot
 }
 
-func LevelBinary(PRoot *BinaryTreeNode) *BinaryTreeNode {
-	if PRoot == nil {
-		return nil
-	}
-	return nil
-}
-
 func NodeNumberBinary(PRoot *BinaryTreeNode) int {
 	if PRoot == nil {
 		return 0
