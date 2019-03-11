@@ -70,26 +70,9 @@ func LinkTraverse(head *INode) {
 	}
 
 	for p := head.next; p != nil; p = p.next {
-		fmt.Println("p.data =", p.data)
+		fmt.Printf("%d", p.data)
 	}
-}
-
-func LinkReversal(head *INode) *INode {
-	var q, r *INode
-	if head == nil || head.next == nil {
-		return nil
-	}
-
-	q = head.next.next
-	head.next.next = nil
-	for ; q != nil; {
-		r = q.next
-		q.next = head.next
-		head.next = q
-		q = r
-	}
-
-	return head
+	fmt.Println("")
 }
 
 func LinkCircle(head *INode) int {
@@ -131,10 +114,7 @@ func main() {
 		return
 	}
 
-	err = LinkReversal(head)
-	if err == nil {
-		return
-	}
+	LinkTraverse(head)
 
 	ret := LinkCircle(head)
 	if ret == 1 {
