@@ -38,6 +38,8 @@ func LinkInsert(head *INode, value int) *INode {
 	return head
 }
 
+/* 将p作为反转链表的尾节点，尾节点的下一个位置是q, 始终将q插入到head的下
+   一个位置 */
 func LinkReversal(head *INode) *INode {
 	if head == nil {
 		return nil
