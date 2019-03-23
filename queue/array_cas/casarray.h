@@ -38,15 +38,13 @@
 uint32_t cas_free_count;
 #endif
 
-/* 
- * The lock-free queue is implemented by three indexes, which are the 
+/* The lock-free queue is implemented by three indexes, which are the 
  * dequeue index, the enqueue index, and the maximum dequeue index. 
  * The dequeue index is currently reading data, and the enqueue index is 
  * currently writing data (may not be completed yet, the maximum dequeue 
  * index is not equal to the dequeue index, and the maximum dequeue index 
  * can be updated only after the writing is completed). 
- *
- * */
+ */
 uint32_t global_current_write;
 uint32_t global_current_read;		
 uint32_t global_current_max_read;
