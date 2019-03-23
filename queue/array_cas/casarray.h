@@ -29,4 +29,4 @@ typedef struct _cas_node_t {
 #endif
 } cas_node_t;
 
-#define _CAS_ARRAY_H_
+#endif /*_CAS_ARRAY_H_ */
