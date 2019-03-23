@@ -36,9 +36,12 @@ int cas_write(uint8_t *data)
 	 * */
 	do
 	{
-		/* Since the temporary production and temporary consumption indexes			* are not atomic operations, when the length of the data that can 		   * be consumed in the current queue is obtained, the current
-		 * reading index cannot be subtracted from the maximum consumption 			* index, and can be counted by the cas_global_count counter in 
-		 * casarray.h, but the performance will be Reduced. 
+		/* Since the temporary production and temporary consumption
+		 * indexes are not atomic operations, when the length of the data
+		 * that can be consumed in the current queue is obtained, the
+		 * current reading index cannot be subtracted from the maximum
+		 * consumption index, and can be counted by the cas_global_count
+		 * counter in casarray.h, but the performance will be Reduced. 
 		 */
 		tmp_current_read = global_current_read;
 		tmp_current_write = global_current_write;
@@ -53,8 +56,10 @@ int cas_write(uint8_t *data)
 	cas_queue[tmp_current_write].data_buf = (char *)data;
 
 	/* Update the largest index that can currently be consumed: Ensure
-	 * that the producer is not updated until production is complete, and
-	 * that there must be multiple producers that must be updated in order.		*/
+	 * that the producer is not updated until production is complete,
+	 * and that there must be multiple producers that must be updated
+	 * in order.
+	 */
 	while(CAS(&global_current_max_read, tmp_current_write,
 							(tmp_current_write+1) % queue_length))
 	{

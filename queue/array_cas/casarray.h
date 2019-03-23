@@ -16,7 +16,7 @@
 #define _QUEUE_DEFAULT_SIZE 128
 #endif
 
-#define CAS_OK				0
+#define CAS_OK			    0
 #define CAS_NONE_DATA		1
 #define CAS_FULL_QUEUE		2
 #define CAS_EMPTY_QUEUE		3
