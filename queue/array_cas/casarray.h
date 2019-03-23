@@ -25,12 +25,18 @@
 
 /* Reference counter: Calculate queue size */
 #ifdef _CAS_GLOBAL_COUNT
-	uint32_t global_count;
+	uint32_t cas_global_count;
 #endif
 
 /* Lock-free queue core macro function: compare and exchange */
 #define CAS(ptr, oldval, newval) \
 		__sync_bool_compare_and_swap(ptr, oldval, newval)
+
+/* Release the counter of the dynamic array */
+#ifndef _CAS_FREE_COUNT
+#define _CAS_FREE_COUNT
+uint32_t cas_free_count;
+#endif
 
 /* 
  * The lock-free queue is implemented by three indexes, which are the 
@@ -55,6 +61,7 @@ extern cas_node_t *cas_queue;
 void *cas_init(uint32_t size);
 int cas_read(uint8_t *data);
 int cas_write(uint8_t *data);
+void cas_free();
 char *cas_strerror(int error_code);
 
 #endif /*_CAS_ARRAY_H_ */

@@ -1,17 +1,17 @@
 #include <sched.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "casarray.h"
 
 void *cas_init(uint32_t size)
 {
 	if (!size) {
 		queue_length = _QUEUE_DEFAULT_SIZE;
-		cas_queue = (cas_node_t *) malloc(sizeof(cas_node_t)*queue_length);
 	} else {
 		queue_length = size;
-		cas_queue = (cas_node_t *) malloc(sizeof(cas_node_t)*queue_length);
 	}
+	cas_queue = (cas_node_t *) malloc(sizeof(cas_node_t)*queue_length);
 	if (!cas_queue) {
 		return NULL;
 	}
@@ -65,6 +65,22 @@ int cas_read(uint8_t *data)
 					strlen(cas_queue[tmp_current_read].data_buf));
 
 	return CAS_OK;
+}
+
+void cas_free()
+{
+	while (1)
+	{
+		if (CAS(&cas_free_count, 0, 1) == TRUE)
+		{
+			free(cas_queue);
+			return ;
+		}
+		if (cas_free_count) {
+			return ;
+		}
+		usleep(10);
+	}
 }
 
 char *cas_strerror(int error_code)
