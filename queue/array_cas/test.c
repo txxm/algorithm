@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <casarray.h>
+#include "casarray.h"
 
 cas_node_t *cas_queue;
 
@@ -19,7 +19,7 @@ void *thread_read(void *args)
 		memset(buf, 0, 1024);
 		ret = cas_read(buf);
 		if (ret != CAS_OK) {
-			printf("%s", cas_strerror(ret));
+			//printf("%s", cas_strerror(ret));
 			continue;
 		}
 		printf("%s", buf);
@@ -44,7 +44,7 @@ void *thread_write(void *args)
 		sprintf(buf, "%s", asctime(tblock));
 		ret = cas_write(buf);
 		if (ret != CAS_OK) {
-			printf("%s\n", cas_strerror(ret));
+			//printf("%s\n", cas_strerror(ret));
 			continue;
 		}
 	}
@@ -57,21 +57,22 @@ int main(int argc, char *argv[])
 	pthread_t tid[5];
 	pthread_t tid2[5];
 
-	cas_queue = cas_init(128);
+	cas_queue = cas_init(12800);
 	if (cas_queue == NULL) {
 		printf("cas_init() error");
 		return -1;
 	}
 
 	printf("cas_init() success\n");
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < 1; i++) {
 		pthread_create(&tid[i], NULL, thread_write, NULL);
 	}
 	for (i = 0; i < 5; i++) {
 		pthread_create(&tid2[i], NULL, thread_read, NULL);
 	}
 
-	sleep(10);
+	sleep(40);
+	cas_free();
 
 	return 0;
 }
