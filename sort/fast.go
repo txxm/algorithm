@@ -2,36 +2,49 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 )
 
-func position(array []int, l int, r int) int {
+func partition(array []int, left int, right int) int {
 	if array == nil {
 		return -1
 	}
 
-	i := l-1
-	val := array[r]
-	for j := l; j <= r-1; j++ {
+	i := left-1
+	val := array[right]
+	for j := left; j <= right-1; j++ {
 		if array[j] <= val {
 			i = i+1
 			array[i], array[j] = array[j], array[i]
 		}
 	}
 
-	array[i+1], array[r] = array[r], array[i+1]
+	array[i+1], array[right] = array[right], array[i+1]
 	return i+1
 }
 
-func quicksort(array []int, l int, r int) {
+func random_partition(array []int, left int, right int) int {
+	var i, temp int
+
+	i = rand.Intn(100)%(right-left+1)+left
+	temp = array[right]
+	array[right] = array[i]
+	array[i] = temp
+
+	temp = partition(array, left, right)
+	return temp
+}
+
+func quicksort(array []int, left int, right int) {
 	var pos int
 	if array == nil {
 		return
 	}
 
-	if l < r {
-		pos = position(array, l, r)
-		quicksort(array, l, pos-1)
-		quicksort(array, pos+1, r)
+	if left < right {
+		pos = random_partition(array, left, right)
+		quicksort(array, left, pos-1)
+		quicksort(array, pos+1, right)
 	}
 }
 
